@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -19,6 +20,7 @@ class Car(models.Model):
     value = models.FloatField(blank=True, null=True)
     photo = models.ImageField(upload_to='cars/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, related_name='car_user', null=False)
 
     def __str__(self):
         return self.model

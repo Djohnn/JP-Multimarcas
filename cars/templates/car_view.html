@@ -1,30 +1,98 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block content %}
-
-    <form method="GET" action="{% url 'cars_list' %}">
-        <input type="text" name="search" placeholder="Buscar carro...">
-        <button type="submit">Buscar</button>
+<div class="container my-5">
+    
+    <!-- Formulário de busca -->
+    <form method="GET" action="{% url 'cars_list' %}" class="d-flex justify-content-center mb-4">
+        <input 
+            type="text" 
+            name="search" 
+            class="form-control w-50 me-2" 
+            placeholder="Buscar carro..."
+            value="{{ request.GET.search }}"
+        >
+        <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 
-    <div class="car-grid">
+    <!-- Grid de cards -->
+    <div class="row">
         {% if cars %}
-        {% for car in cars %}
-            <a href="{% url 'car_detail' car.pk %}">
-                <div class="car-card" >
-                    {% if car.photo %}
-                        <img src="{{ car.photo.url }}" alt="{{ car.model }} - {{ car.brand }}" >
-                    {% else %}
-                    <p> Foto não disponivel </p>
-                    {% endif %}
-                    <h2>{{ car.brand }} {{ car.model }}</h2>
-                    <p>{{ car.factory_year }} - R$ {{ car.value }}</p>
+            {% for car in cars %}
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <a href="{% url 'car_detail' car.pk %}" class="text-decoration-none text-dark">
+                        <div class="card shadow-sm h-100">
+                            {% if car.photo %}
+                                <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.model }} - {{ car.brand }}">
+                            {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <p class="text-muted m-0">Foto não disponível</p>
+                                </div>
+                            {% endif %}
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+                                <p class="card-text">{{ car.factory_year }} - R$ {{ car.value }}</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        {% endfor %}
+            {% endfor %}
         {% else %}
-            <p class="no-results">Nenhum carro encontrado.</p>
+            <div class="col-12 text-center">
+                <p class="text-muted">Nenhum carro encontrado.</p>
+            </div>
         {% endif %}
     </div>
+
+</div>
 {% endblock %}
+
+
+
+{% comment %} {% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="carros">
+    <form method="GET" action="{% url 'cars_list' %}" class="d-flex justify-content-center mb-4">
+        <input 
+        type="text" 
+        name="search" 
+        class="form-control w-50 me-2" 
+        placeholder="Buscar carro..."
+        value="{{ request.GET.search }}"
+        >
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <div class="car_view">
+        {% if cars %}
+        {% for car in cars %}
+            <div class="col-md-4 mb-4">
+            <a href="{% url 'car_detail' car.pk %}" class="text-decoration-none text-dark">
+                <div class="card shadow-sm h-100">
+                {% if car.photo %}
+                    <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.model }} - {{ car.brand }}">
+                {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <p class="text-muted">Foto não disponível</p>
+                    </div>
+                {% endif %}
+                
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+                    <p class="card-text">{{ car.factory_year }} - R$ {{ car.value }}</p>
+                </div>
+                </div>
+            </a>
+            </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12 text-center">
+            <p class="text-muted">Nenhum carro encontrado.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} {% endcomment %}

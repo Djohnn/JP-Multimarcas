@@ -1,16 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 def register(request):
     if request.method == "POST":
-        user_form = UserCreationForm(request.POST)
+        user_form = CustomUserCreationForm(request.POST)
         if user_form.is_valid():
             print(user_form.cleaned_data)
             user_form.save()
             return redirect('login')
     else:
-        user_form = UserCreationForm()
+        user_form = CustomUserCreationForm()
 
     return render(request, 'register.html', {'user_form': user_form})
 
@@ -23,9 +24,9 @@ def login_view(request):
             login(request, user)
             return redirect('cars_list')
         else:
-            login_form = AuthenticationForm()
+            login_form = CustomAuthenticationForm()
     else:
-        login_form = AuthenticationForm()
+        login_form = CustomAuthenticationForm()
     return render(request, 'login.html', {'login_form': login_form})
 
 def logout_view(request):

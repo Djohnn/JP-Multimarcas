@@ -1,0 +1,7 @@
+.navbar-dark .nav-link {
+    color: rgba(255,255,255,0.75);
+}
+
+.sair-link:hover {
+    color: #dc3545 !important; /* Bootstrap red (text-danger) */
+}

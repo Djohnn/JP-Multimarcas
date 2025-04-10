@@ -1,15 +1,27 @@
 {% extends "base.html" %}
-
+{% load form_tags %}
 
 {% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Login</h2>
 
-    <form action="" method="post">
+    <form method="post" class="mx-auto shadow p-4 rounded bg-light" style="max-width: 500px;">
         {% csrf_token %}
 
-        <table>
-            {{ login_form.as_table }}
-        </table>
-        <input type="submit" value="Entrar">
-    </forms>
+        {% for field in login_form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field|add_class:"form-control" }}
+            {% if field.errors %}
+            <div class="text-danger small mt-1">{{ field.errors|striptags }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
 
-{% endblock  %}
+        <div class="d-flex justify-content-between mt-4">
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <a href="{% url 'register' %}" class="btn btn-secondary">Cadastre-se</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

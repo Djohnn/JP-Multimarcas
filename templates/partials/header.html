@@ -1,23 +1,40 @@
-
-
 <header>
-    <nav>
-        <ul>           
+    <nav class="navbar bg-primary navbar-dark px-4">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+    
+            <!-- Lado esquerdo -->
+            <ul class="navbar-nav d-flex flex-row align-items-center">
             {% if user.is_authenticated %}
-
-                <li>Olá, {{ user.username }}</li>
-                <li><a href="{% url "new_car" %}">Cadastrar Carro</a></li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link text-white fw-bold" href="{% url 'new_car' %}">Cadastrar Carro</a>
+                </li>
+            {% else %}
+                <li class="nav-item mr-3">
+                    <a class="nav-link text-white fw-bold" href="{% url 'login' %}">Entrar</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link text-white fw-bold" href="{% url 'register' %}">Cadastre-se</a>
+                </li>
             {% endif %}
-            {% if not user.is_authenticated %}            
-                <li><a href="{% url 'login' %}">Entrar</a></li>
-                <li><a href="{% url 'register' %}">Cadastre-se</a></li>
-            {% endif %}
-
-                <li><a href="{% url 'cars_list' %}">Carros</a></li>
-
+    
+            <li class="nav-item mr-3">
+                <a class="nav-link text-white fw-bold" href="{% url 'cars_list' %}">Listar Carros</a>
+            </li>
+            </ul>
+    
+            <!-- Lado direito -->
             {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}">Sair</a></li>
+            <ul class="navbar-nav d-flex flex-row align-items-center">
+                <li class="nav-item mr-3">
+                    <a class="nav-link text-white fw-bold">Olá, {{ user.username|title }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold sair-link" href="{% url 'logout' %}">Sair</a>
+                </li>
+            </ul>
             {% endif %}
-        </ul>
+    
+        </div>
     </nav>
-</header>
+</header>  
+

@@ -7,6 +7,7 @@ from .models import Brand, Car
 class CarModelForm(forms.ModelForm):
     class Meta:
         model = Car
+        exclude = ['user']
         fields = '__all__'
         labels = {
             'model': ('Modelo'),

@@ -1,41 +1,60 @@
 {% extends "base.html" %}
+{% load form_tags %}
 
 {% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Cadastrar Usuário</h2>
 
-    <form method="post">  
+    <form method="post" class="mx-auto shadow p-4 rounded bg-light" style="max-width: 500px;">
         {% csrf_token %}
 
-        <br>
-
         <div class="form-group">
-            {{ user_form.username.errors }}
-            <label>Nome:</label> 
-            {{ user_form.username }}
+        <label for="{{ user_form.username.id_for_label }}">Nome:</label>
+        {{ user_form.username|add_class:"form-control" }}
+        {% if user_form.username.errors %}
+            <div class="text-danger small mt-1">{{ user_form.username.errors|striptags }}</div>
+        {% endif %}
         </div>
 
-        <br>
+        <div class="form-group">
+            <label for="{{ user_form.last_name.id_for_label }}">Sobrenome:</label>
+            {{ user_form.last_name |add_class:"form-control" }}
+            {% if user_form.last_name.errors %}
+                <div class="text-danger small mt-1">{{ user_form.last_name.errors|striptags }}</div>
+            {% endif %}
+            </div>
 
         <div class="form-group">
-            {{ user_form.password1.errors }}
-            <label>Senha:</label> 
-            {{ user_form.password1 }}
+            <label for="{{ user_form.email.id_for_label }}">E-mail:</label>
+            {{ user_form.email|add_class:"form-control" }}
+            {% if user_form.email.errors %}
+                <div class="text-danger small mt-1">{{ user_form.email.errors|striptags }}</div>
+            {% endif %}
         </div>
-
-        <br>
 
         <div class="form-group">
-            {{ user_form.password2.errors }}
-            <label>Confirmar Senha:</label> 
-            {{ user_form.password2 }}
+        <label for="{{ user_form.password1.id_for_label }}">Senha:</label>
+        {{ user_form.password1|add_class:"form-control" }}
+        {% if user_form.password1.errors %}
+            <div class="text-danger small mt-1">{{ user_form.password1.errors|striptags }}</div>
+        {% endif %}
         </div>
 
-        <br>
-        
         <div class="form-group">
-            <input type="submit" value="Registrar">
+        <label for="{{ user_form.password2.id_for_label }}">Confirmar Senha:</label>
+        {{ user_form.password2|add_class:"form-control" }}
+        {% if user_form.password2.errors %}
+            <div class="text-danger small mt-1">{{ user_form.password2.errors|striptags }}</div>
+        {% endif %}
         </div>
 
-    </form> 
+        <div class="d-flex justify-content-between mt-4">
+        <button type="submit" class="btn btn-primary">Registrar</button>
+        <a href="{% url 'login' %}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
+
 
 

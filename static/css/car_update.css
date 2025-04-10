@@ -39,7 +39,7 @@ th {
 }
 
 input[type="text"], input[type="number"], select, textarea {
-    padding: 8px;
+    padding: 2px;
     font-size: 14px;
     border: 2px solid #ddd;
     border-radius: 4px;
