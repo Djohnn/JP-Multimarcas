@@ -26,7 +26,7 @@
       </ul>
       
       <p class="text-center mt-3 text-muted">
-        <strong>Cadastrado por:</strong> {{ object.user.get_full_name|default:object.user.username|title }}
+        <strong>Cadastrado por:</strong> {{ object.user.first_name|default:object.user.username }} {{ object.user.last_name }}
       </p>
       <p class="text-center mt-3 text-muted">
         <strong>Contato:</strong> {{ object.user.email }}
