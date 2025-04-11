@@ -1,9 +1,10 @@
 {% extends "base.html" %}
-{% load static %}
+{% load format_tags %}
+
 
 {% block content %}
 <div class="container my-5">
-    
+
     <!-- Formulário de busca -->
     <form method="GET" action="{% url 'cars_list' %}" class="d-flex justify-content-center mb-4">
         <input 
@@ -22,17 +23,29 @@
             {% for car in cars %}
                 <div class="col-sm-6 col-md-4 mb-4">
                     <a href="{% url 'car_detail' car.pk %}" class="text-decoration-none text-dark">
-                        <div class="card shadow-sm h-100">
+                        <div class="card shadow-sm h-100" style="height: 400px;">
                             {% if car.photo %}
-                                <img src="{{ car.photo.url }}" class="card-img-top" alt="{{ car.model }} - {{ car.brand }}">
+                                <img 
+                                    src="{{ car.photo.url }}" 
+                                    class="card-img-top" 
+                                    alt="{{ car.model }} - {{ car.brand }}"
+                                    style="height: 200px; object-fit: cover;"
+                                >
                             {% else %}
-                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <div 
+                                    class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                    style="height: 200px;"
+                                >
                                     <p class="text-muted m-0">Foto não disponível</p>
                                 </div>
                             {% endif %}
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
-                                <p class="card-text">{{ car.factory_year }} - R$ {{ car.value }}</p>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{ car.brand }} {{ car.model }}</h5>
+                                <p class="card-text text-center mb-0">
+                                    <strong>Ano:</strong> {{ car.factory_year }}<br>
+                                    <strong>Preço:</strong> {{ car.value|brl }}<br>
+                                    <strong>Placa:</strong> {{ car.plate }}
+                                </p>
                             </div>
                         </div>
                     </a>

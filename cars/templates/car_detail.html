@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load format_tags %}
 
 {% block content %}
 <div class="container my-5">
@@ -19,7 +19,7 @@
         <li class="list-group-item"><strong>Ano de fabricação:</strong> {{ object.factory_year }}</li>
         <li class="list-group-item"><strong>Ano do modelo:</strong> {{ object.model_year }}</li>
         <li class="list-group-item"><strong>Placa:</strong> {{ object.plate }}</li>
-        <li class="list-group-item"><strong>Preço:</strong> R$ {{ object.value }}</li>
+        <li class="list-group-item"><strong>Preço:</strong>  {{ object.value|brl  }}</li>
         {% if object.bio %}
           <li class="list-group-item"><strong>Bio:</strong> {{ object.bio }}</li>
         {% endif %}
